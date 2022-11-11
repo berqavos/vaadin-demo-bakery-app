@@ -46,6 +46,8 @@ RUN set -ex; \
     gosu nobody true
 
 COPY --from=builder --chown=${APP_USER}:${APP_GROUP} /usr/src/app/target/app.war ${APP_HOME}/app.war
+COPY --chown=${APP_USER}:${APP_GROUP} jmx /opt/jmx
+
 COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
