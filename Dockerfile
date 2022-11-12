@@ -19,7 +19,7 @@ RUN set -ex; \
     node --version; \
     npm --version
 
-RUN mvn clean --batch-mode package -Pproduction -DskipTests; \
+RUN --mount=type=cache,target=/root/.m2 mvn clean --batch-mode package -Pproduction -DskipTests; \
     mv /usr/src/app/target/vaadin-demo-bakery-app-$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout).war \
         /usr/src/app/target/app.war
 
