@@ -5,7 +5,12 @@ FROM maven:3-jdk-8 AS builder
 
 WORKDIR /usr/src/app
 
-COPY . .
+ADD pom.xml $WORKDIR
+
+# verify and use the cache
+RUN mvn verify --fail-never
+
+ADD . $WORKDIR
 
 RUN set -ex; \
     curl -sL https://deb.nodesource.com/setup_14.x | bash -;\
